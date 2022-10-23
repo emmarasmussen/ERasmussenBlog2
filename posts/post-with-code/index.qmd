@@ -1,13 +1,109 @@
 ---
-title: "Post With Code"
-author: "Harlow Malloc"
-date: "2022-10-20"
-categories: [news, code, analysis]
+title: "Resume"
+author: "Emma Rasmussen"
+date: "2022-10-22"
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+## **Emma Rasmussen**
 
-```{r}
-1 + 1
-```
+Northampton, MA; 978-877-6257; erasmussen\@umass.edu
+
+#### [**Technical Skills**]{.underline}
+
+R (familiar with), ArcGIS (familiar with), Microsoft Office (Word, Excel, PowerPoint, Outlook), Google Suites (Docs, Slides, Forms, Sheets)
+
+#### [**Education**]{.underline}
+
+**University of Massachusetts Amherst,** Amherst, MA *Expected Graduation:* May 2024
+
+*Master of Science in Data Analytics and Computational Social Sciences (Candidate)*
+
+Relevant Coursework: Data Science Fundamentals, Introduction to Quantitative Analysis, Survey Research Methods
+
+**Roger Williams University**, Bristol, RI; May 2021\
+*Bachelor of Science in Public Health; Double Major: Anthropology/Sociology; Minor: Biology*
+
+GPA: 3.949; Honors: *Summa cum laude*; Honors Program
+
+2020 Academic Excellence Award in Anthropology/Sociology
+
+2021 Thomas Sorger Award for Interdisciplinary Excellence in Public Health
+
+#### [**Academic Research**]{.underline}
+
+**Public Health Senior Capstone** Fall 2020
+
+"Increasing Staff Retention in the Disability Services Sector"
+
+-   Identified public health problems at a human services organization and applied evidence-based research to make recommendations to reduce burnout and increase staff retention
+
+**Anthropology/Sociology Senior Thesis** Spring 2020
+
+"American Conceptions of Nutritional Health: A Cross-Cultural Comparison of Food-Based Dietary Guidelines"
+
+-   Conducted a content analysis focusing on the effects of culture on nutrition recommendations
+
+-   Awarded Thesis with Distinction
+
+#### [**Work Experience**]{.underline}
+
+**Fitzwilly's**, Northampton, MA, *Server;* June 2022- Present
+
+-   Greeted guests, assisted customers using menu knowledge to inform orders and ensured customers had a good experience
+
+-   Served parties of over twenty guests
+
+**Boston University School of Medicine**, Framingham, MA, *Research Assistant;* October 2021- June 2022
+
+-   Conducted research for the Brain Aging Program at the Framingham Heart Study
+
+-   Reviewed participant medical charts scanning for evidence of cognitive decline and traumatic brain injuries
+
+-   Recorded data from participant medical charts using REDcap
+
+**Rail Trail Flatbread Co.**, Hudson, MA, *Server and Barback;* September 2021- June 2022
+
+-   Served guests and prepared beers, wines, and cocktails as a barback. Used judgement to prioritize tasks during busy periods
+
+-   Assisted different areas of the restaurant as needed, including host stand, bussing, and food running
+
+-   Attended bi-weekly server meetings and open book management classes to improve productivity as a team
+
+**Bolton Bean**, Bolton MA, *Barista;* July 2020- October 2021
+
+-   Prepared coffee and espresso beverages, took orders, assisted customers and helped train new staff
+
+**Seven Hills Foundation**, Worcester, MA, *Human Resources Intern;* September 2020- December 2020
+
+-   Performed administrative tasks such as filing employee records, helping with onboarding and new employee orientation, performing driving record checks, distributing staff awards, and completing employment verifications
+
+-   Performed receptionist duties including directing visitors and phone calls and enforced COVID-19 sanitation procedures
+
+**Chartwells K-12 Dining Services**, Newport, RI, *Student Wellness Intern;* September 2019- December 2019
+
+-   Studied USDA requirements for school lunches, conducted interactive programs for students and their parents, served school lunch following portion requirements, created training presentation for Child and Adult Care Food Program, created a lunch preferences survey for students
+
+**Llandudno Pier, Llandudno**, Wales, UK, *Café Attendant and Bartender*; June 2019- August 2019
+
+-   Operated espresso machine to prepare coffee beverages, prepared food, cleaned, opened and closed café
+
+-   Prepared and served alcoholic beverages, used judgement to appropriately card customers, cleaned bar facility
+
+**RWU Science Center**,Bristol, RI, *Biology and Chemistry Tutor;* September 2018- September 2019
+
+-   Assisted peers with homework, labs, and exam preparation
+
+-   Taught students how to display data in Excel charts and graphs
+
+**RWU Health and Wellness Education**, Bristol, RI, *Health and Wellness Educator;* August 2018- May 2019
+
+-   Organized on-campus campaigns to promote healthy lifestyle and behavior choices for students
+
+-   Created surveys and collected feedback to improve future programs
+
+-   Trained by NIH-funded Peer Body Project researcher to facilitate small groups of women on the Peer Body Project to prevent eating disorders and promote positive body image at RWU
+
+**ALS Therapy Development Institute**, Cambridge, MA, *Tri-State Trek Intern;* June 2018
+
+-   Prepared for large scale bike event, took inventory, and marked course from Boston, MA to Greenwich, CT
