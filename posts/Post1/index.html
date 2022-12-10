@@ -8,6 +8,7 @@
 
 <meta name="author" content="Emma Rasmussen">
 <meta name="dcterms.date" content="2022-12-08">
+<meta name="description" content="The Effect of Seasonality on Mass Shootings: And Exploratory Data Analysis">
 
 <title>Emma Rasmussen DACSS Blog - Data Science Fundamentals Final Project</title>
 <style>
@@ -131,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -163,8 +164,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Data Science Fundamentals Final Project</h1>
-                      </div>
+      <div class="quarto-title-block"><div><h1 class="title">Data Science Fundamentals Final Project</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+                  <div>
+        <div class="description">
+          The Effect of Seasonality on Mass Shootings: And Exploratory Data Analysis
+        </div>
+      </div>
+                </div>
   </div>
     
   
@@ -190,7 +196,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#reading-in-the-data" id="toc-reading-in-the-data" class="nav-link" data-scroll-target="#reading-in-the-data">Reading In the Data</a></li>
+  <li><a href="#tidying-the-data" id="toc-tidying-the-data" class="nav-link" data-scroll-target="#tidying-the-data">Tidying the Data</a></li>
+  <li><a href="#creating-initial-plots-by-year-and-month" id="toc-creating-initial-plots-by-year-and-month" class="nav-link" data-scroll-target="#creating-initial-plots-by-year-and-month">Creating Initial Plots by Year and Month</a></li>
+  <li><a href="#creating-plots-by-state" id="toc-creating-plots-by-state" class="nav-link" data-scroll-target="#creating-plots-by-state">Creating Plots by State</a></li>
+  <li><a href="#creating-a-new-variable" id="toc-creating-a-new-variable" class="nav-link" data-scroll-target="#creating-a-new-variable">Creating a New Variable</a></li>
+  <li><a href="#does-the-severity-of-shootings-correlate-with-seasonality" id="toc-does-the-severity-of-shootings-correlate-with-seasonality" class="nav-link" data-scroll-target="#does-the-severity-of-shootings-correlate-with-seasonality">Does the Severity of Shootings Correlate with Seasonality?</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -571,6 +593,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Wickham, Hadley and Garrett Grolemund. (2017). <em>R for Data Science</em>. O’Reilly Media. https://r4ds.had.co.nz/</p>
 
 
+<!-- -->
+
 </section>
 
 </main> <!-- /main -->
@@ -622,6 +646,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -670,7 +745,310 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb31" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Data Science Fundamentals Final Project"</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Emma Rasmussen"</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "The Effect of Seasonality on Mass Shootings: And Exploratory Data Analysis"</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "09/03/2022"</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "graph1.jpg"</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>The Effect of Seasonality on Mass Shootings: And Exploratory Data Analysis</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">message=</span><span class="cn">FALSE</span>)</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>It seems as though every week, or every day, there is another mass shooting at the top of news headlines. While many have tried to explain what it is that causes this seeming increase in mass shootings in the United States (U.S.), from violence in video games, lack of gun control, or the mental health crisis, the picture of what is going on is still unclear. For this project, I am interested in trends in U.S. mass shootings, for instance, when and where they are most likely to occur, and hypothesizing why these trends occur.</span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>To conduct this exploratory data analysis, I used mass shooting data from the Gun Violence Archive (GVA). Since 2014, the Gun Violence Archive has manually compiled a ledger of incidences of gun violence in the U.S. (Gun Violence Archive, 2022b). To compile these lists, the GVA triangulates "law enforcement, government, and media sources" (Gun Violence Archive, 2022b). As there is no standard definition for mass shootings, for this project I used the GVA's definition of mass shooting; four or more people (not including the perpetrator) are shot or killed (Gun Violence Archive, 2022b).</span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>I joined 9 data sets from the GVA, one for each year 2014 to 2022. The 2022 data included in this analysis goes up until August 27, 2022, the day I read in the data set.</span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>Because of the potential of reporting error over the years/media sensationalizing of shooting incidences over time, generally, I will avoid looking at trends over the years and look at trends across months of the year.</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reading In the Data</span></span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a><span class="fu">gs4_deauth</span>()</span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a vector of new column names</span></span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>mass_names<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"incident_id"</span>, <span class="st">"incident_date"</span>, <span class="st">"state"</span>, <span class="st">"city_or_county"</span>, <span class="st">"address"</span>, <span class="st">"number_killed"</span>, <span class="st">"number_injured"</span>, <span class="st">"delete"</span>)</span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a function to read in the data sets with new column names, skip the first row, remove the "operation" column which contains links to news articles in the original data source, and create a "Year" column for ease of analysis</span></span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a>read_shootings<span class="ot">&lt;-</span><span class="cf">function</span>(sheet_name){<span class="fu">read_sheet</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1rCnIYPQSkcZDCulp5KXAxmZUBad4QtrERi4_7tUMXqs/edit?usp=sharing"</span>, </span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">sheet=</span>sheet_name,</span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">col_names=</span>mass_names, </span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">skip=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="st">"YearSheet"</span><span class="ot">=</span>sheet_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-60"><a href="#cb31-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">recode</span>(YearSheet, <span class="st">"MassShootings2014"</span><span class="ot">=</span><span class="st">"2014"</span>, <span class="st">"MassShootings2015"</span><span class="ot">=</span><span class="st">"2015"</span>, <span class="st">"MassShootings2016"</span><span class="ot">=</span><span class="st">"2016"</span>, <span class="st">"MassShootings2017"</span><span class="ot">=</span><span class="st">"2017"</span>, <span class="st">"MassShootings2018"</span><span class="ot">=</span><span class="st">"2018"</span>, <span class="st">"MassShootings2019"</span><span class="ot">=</span><span class="st">"2019"</span>, <span class="st">"MassShootings2020"</span><span class="ot">=</span><span class="st">"2020"</span>, <span class="st">"MassShootings2021"</span><span class="ot">=</span><span class="st">"2021"</span>, <span class="st">"MassShootings2022"</span><span class="ot">=</span><span class="st">"2022"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-61"><a href="#cb31-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>delete, <span class="sc">-</span>YearSheet)</span>
+<span id="cb31-62"><a href="#cb31-62" aria-hidden="true" tabindex="-1"></a>           }</span>
+<span id="cb31-63"><a href="#cb31-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-64"><a href="#cb31-64" aria-hidden="true" tabindex="-1"></a><span class="co">#using purrr/map_dfr to join data sheets for 2014 through 2022, applying the function read_shootings for consistent formatting</span></span>
+<span id="cb31-65"><a href="#cb31-65" aria-hidden="true" tabindex="-1"></a>mass_shootings_all <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(</span>
+<span id="cb31-66"><a href="#cb31-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sheet_names</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1rCnIYPQSkcZDCulp5KXAxmZUBad4QtrERi4_7tUMXqs/edit?usp=sharing"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>],</span>
+<span id="cb31-67"><a href="#cb31-67" aria-hidden="true" tabindex="-1"></a>  read_shootings)</span>
+<span id="cb31-68"><a href="#cb31-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-69"><a href="#cb31-69" aria-hidden="true" tabindex="-1"></a>mass_shootings_all</span>
+<span id="cb31-70"><a href="#cb31-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-71"><a href="#cb31-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-72"><a href="#cb31-72" aria-hidden="true" tabindex="-1"></a>After joining the sheets, I double checked that the number of rows in the google sheets added up to the number of rows in my joined data set above (minus 9 for the column names).</span>
+<span id="cb31-73"><a href="#cb31-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-74"><a href="#cb31-74" aria-hidden="true" tabindex="-1"></a><span class="fu"># Tidying the Data</span></span>
+<span id="cb31-75"><a href="#cb31-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-76"><a href="#cb31-76" aria-hidden="true" tabindex="-1"></a>The initial data set includes an incident ID, the date in POSIXct format, state, city or county, the address of the incident, number killed, number injured, as well as the "Year" column I created from the sheet names. The data is fairly tidy to begin with, each "case" is a particular shooting incident (uniquely defined by the incident ID) and has its own row, each variable (characteristic of the shooting) has its own column, and each value has it's own cell. I still need to change the state column into "date" format, add a "month" column to use for analysis, and change the order of the columns to make more logical sense.</span>
+<span id="cb31-77"><a href="#cb31-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-80"><a href="#cb31-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-81"><a href="#cb31-81" aria-hidden="true" tabindex="-1"></a><span class="co">#converting incident_date from "POSIXct" to "date" format</span></span>
+<span id="cb31-82"><a href="#cb31-82" aria-hidden="true" tabindex="-1"></a>mass_shootings_all<span class="sc">$</span>incident_date<span class="ot">&lt;-</span><span class="fu">as.Date</span>(mass_shootings_all<span class="sc">$</span>incident_date)</span>
+<span id="cb31-83"><a href="#cb31-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-84"><a href="#cb31-84" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a month column and converting to factors</span></span>
+<span id="cb31-85"><a href="#cb31-85" aria-hidden="true" tabindex="-1"></a>mass_shootings_all<span class="ot">&lt;-</span>mass_shootings_all<span class="sc">%&gt;%</span> </span>
+<span id="cb31-86"><a href="#cb31-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month=</span><span class="fu">as.factor</span>(<span class="fu">month</span>(incident_date))) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-87"><a href="#cb31-87" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">month=</span><span class="fu">recode</span>(month, <span class="st">`</span><span class="at">1</span><span class="st">`</span><span class="ot">=</span><span class="st">"Jan"</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span><span class="ot">=</span><span class="st">"Feb"</span>, <span class="st">`</span><span class="at">3</span><span class="st">`</span><span class="ot">=</span><span class="st">"Mar"</span>, <span class="st">`</span><span class="at">4</span><span class="st">`</span><span class="ot">=</span><span class="st">"Apr"</span>, <span class="st">`</span><span class="at">5</span><span class="st">`</span><span class="ot">=</span><span class="st">"May"</span>, <span class="st">`</span><span class="at">6</span><span class="st">`</span><span class="ot">=</span><span class="st">"Jun"</span>, <span class="st">`</span><span class="at">7</span><span class="st">`</span><span class="ot">=</span><span class="st">"Jul"</span>, <span class="st">`</span><span class="at">8</span><span class="st">`</span><span class="ot">=</span><span class="st">"Aug"</span>, <span class="st">`</span><span class="at">9</span><span class="st">`</span><span class="ot">=</span><span class="st">"Sept"</span>, <span class="st">`</span><span class="at">10</span><span class="st">`</span><span class="ot">=</span><span class="st">"Oct"</span>, <span class="st">`</span><span class="at">11</span><span class="st">`</span><span class="ot">=</span><span class="st">"Nov"</span>, <span class="st">`</span><span class="at">12</span><span class="st">`</span><span class="ot">=</span><span class="st">"Dec"</span>))</span>
+<span id="cb31-88"><a href="#cb31-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-89"><a href="#cb31-89" aria-hidden="true" tabindex="-1"></a><span class="co">#reordering the columns </span></span>
+<span id="cb31-90"><a href="#cb31-90" aria-hidden="true" tabindex="-1"></a>mass_shootings_all<span class="ot">&lt;-</span>mass_shootings_all <span class="sc">%&gt;%</span> </span>
+<span id="cb31-91"><a href="#cb31-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"incident_id"</span>, <span class="st">"incident_date"</span>, <span class="st">"Year"</span>, <span class="st">"month"</span>, <span class="st">"state"</span>, <span class="st">"city_or_county"</span>, <span class="st">"address"</span>, <span class="st">"number_killed"</span>, <span class="st">"number_injured"</span>))</span>
+<span id="cb31-92"><a href="#cb31-92" aria-hidden="true" tabindex="-1"></a>mass_shootings_all</span>
+<span id="cb31-93"><a href="#cb31-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-94"><a href="#cb31-94" aria-hidden="true" tabindex="-1"></a><span class="co">#saving an original copy of the tidied data set</span></span>
+<span id="cb31-95"><a href="#cb31-95" aria-hidden="true" tabindex="-1"></a>mass_shootings_orig<span class="ot">&lt;-</span>mass_shootings_all</span>
+<span id="cb31-96"><a href="#cb31-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-97"><a href="#cb31-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-98"><a href="#cb31-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-99"><a href="#cb31-99" aria-hidden="true" tabindex="-1"></a><span class="fu"># Creating Initial Plots by Year and Month</span></span>
+<span id="cb31-100"><a href="#cb31-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-101"><a href="#cb31-101" aria-hidden="true" tabindex="-1"></a>As mentioned in my introduction, I am interested in trends in mass shootings over time. To begin, I will look at how the number of mass shootings has changed by year across my data set, and then look at how the number of mass shootings varies across months of the year.</span>
+<span id="cb31-102"><a href="#cb31-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-105"><a href="#cb31-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-106"><a href="#cb31-106" aria-hidden="true" tabindex="-1"></a><span class="co">#creating histogram of shootings/year</span></span>
+<span id="cb31-107"><a href="#cb31-107" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all, <span class="fu">aes</span>(Year))<span class="sc">+</span></span>
+<span id="cb31-108"><a href="#cb31-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"Count"</span>)<span class="sc">+</span></span>
+<span id="cb31-109"><a href="#cb31-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 1: Number of Mass Shootings 2014-2022*"</span>, <span class="at">caption=</span><span class="st">"*2022 data goes up to August 27, 2022"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)</span>
+<span id="cb31-110"><a href="#cb31-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-111"><a href="#cb31-111" aria-hidden="true" tabindex="-1"></a><span class="co">#creating line plot by year and month</span></span>
+<span id="cb31-112"><a href="#cb31-112" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all, <span class="fu">aes</span>(<span class="at">x=</span>month, <span class="at">group=</span>Year, <span class="at">color=</span>Year))<span class="sc">+</span></span>
+<span id="cb31-113"><a href="#cb31-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span></span>
+<span id="cb31-114"><a href="#cb31-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span></span>
+<span id="cb31-115"><a href="#cb31-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 2: Number of Mass Shootings by Month 2014-2022*"</span>, <span class="at">caption=</span><span class="st">"*2022 data is only up until August 27, 2022"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)</span>
+<span id="cb31-116"><a href="#cb31-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-117"><a href="#cb31-117" aria-hidden="true" tabindex="-1"></a><span class="co">#excluding 2022 from the rest of the graphs so as to not affect the month distribution (for which we don't yet have Sept-Dec data)</span></span>
+<span id="cb31-118"><a href="#cb31-118" aria-hidden="true" tabindex="-1"></a>mass_shootings_all<span class="ot">&lt;-</span><span class="fu">filter</span>(mass_shootings_all, Year<span class="sc">!=</span><span class="dv">2022</span>)</span>
+<span id="cb31-119"><a href="#cb31-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-120"><a href="#cb31-120" aria-hidden="true" tabindex="-1"></a><span class="co">#creating plot by month</span></span>
+<span id="cb31-121"><a href="#cb31-121" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all, <span class="fu">aes</span>(<span class="at">x=</span>month))<span class="sc">+</span></span>
+<span id="cb31-122"><a href="#cb31-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>, <span class="at">group=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb31-123"><a href="#cb31-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 3: Number of Mass Shootings By Month (2014-2021)"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)</span>
+<span id="cb31-124"><a href="#cb31-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-125"><a href="#cb31-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-126"><a href="#cb31-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-127"><a href="#cb31-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-128"><a href="#cb31-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-129"><a href="#cb31-129" aria-hidden="true" tabindex="-1"></a>**Figure 1** : I will not spend to much time analyzing this graph because of the issue I mentioned in the introduction. However, if mass shootings have accurately been reported/compiled in this data set, it does appear that mass shootings have generally been increasing since 2014, but especially in 2019, with a pretty large jump in 2020. This is surprising to me based on my experience with the news in 2020. I remember feeling like I was hearing of *less* shootings in 2020 than 2019. This data paints a different picture. One possible explanation could be that the media was more consumed with reporting COVID-19-related news during 2020.</span>
+<span id="cb31-130"><a href="#cb31-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-131"><a href="#cb31-131" aria-hidden="true" tabindex="-1"></a>**Figure 2** : This graph actually expands on my thoughts about shootings in 2020. The 2020 line shows a massive increase in May and June 2020. This is right after the intial COVID-19 stay at home orders/guidelines in much of the U.S. in March 2020. Could this be, for lack of a better word, "pent-up demand" for mass shootings? There were less gatherings/ opportunities for mass shootings given the circumstances in March 2020, and perhaps more of an opportunity as restrictions relaxed in the summer. At the same time, it appears that most years also show an increase in shootings in June and July.</span>
+<span id="cb31-132"><a href="#cb31-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-133"><a href="#cb31-133" aria-hidden="true" tabindex="-1"></a>**Figure 3** : This graph creates a more jarring picture of the possible seasonality of mass shootings. It appears that the most occur in June and July, with incidences increasing beginning in April and tapering down beginning in August.</span>
+<span id="cb31-134"><a href="#cb31-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-135"><a href="#cb31-135" aria-hidden="true" tabindex="-1"></a>After looking at these initial graphs I am curious, why do the most mass shootings occur in June and July? Is it temperature/seasonally dependent? According to a report from the U.S. Department of Justice, many criminal activities actually follow seasonal variations (2014). The report found that all types of criminal victimization in the study (property victimization, and other forms of violent crime) *except robbery* followed the trend of more crimes in the summer versus the winter (U.S. Department of Justice, 2014). However, the study did not provide explanations as to why this is the case (U.S. Department of Justice 2014).</span>
+<span id="cb31-136"><a href="#cb31-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-137"><a href="#cb31-137" aria-hidden="true" tabindex="-1"></a>Moving on, I am curious if mass shootings also follow these seasonal trends. I am also curious: if violence is temperature dependent, would states with more/less seasonal temperature variation follow the national trend? Below I look at FL and IL and create a plot for all states to see how well they follow the national trends:</span>
+<span id="cb31-138"><a href="#cb31-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-139"><a href="#cb31-139" aria-hidden="true" tabindex="-1"></a><span class="fu"># Creating Plots by State</span></span>
+<span id="cb31-140"><a href="#cb31-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-143"><a href="#cb31-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-144"><a href="#cb31-144" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribution of shootings by month in FL</span></span>
+<span id="cb31-145"><a href="#cb31-145" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(mass_shootings_all, state<span class="sc">==</span><span class="st">"Florida"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-146"><a href="#cb31-146" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(month))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"Count"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>, <span class="at">group=</span><span class="dv">1</span>) <span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 4: Number of Mass Shootings By Month in Florida (2014-2021)"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)</span>
+<span id="cb31-147"><a href="#cb31-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-148"><a href="#cb31-148" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribution of shootings by month in MA</span></span>
+<span id="cb31-149"><a href="#cb31-149" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(mass_shootings_all, state<span class="sc">==</span><span class="st">"Massachusetts"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-150"><a href="#cb31-150" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(month))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"Count"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>, <span class="at">group=</span><span class="dv">1</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 5: Mass Shootings By Month in Massachusetts (2014-2021)"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)</span>
+<span id="cb31-151"><a href="#cb31-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-152"><a href="#cb31-152" aria-hidden="true" tabindex="-1"></a><span class="co">#Mass has some months where count=0, which is omitted from the histogram when filtering out mass. Below I created a table and then created a bar graph from this to preserve the months where count=0</span></span>
+<span id="cb31-153"><a href="#cb31-153" aria-hidden="true" tabindex="-1"></a>mass_shootings_all_mass<span class="ot">&lt;-</span><span class="fu">filter</span>(mass_shootings_all, state<span class="sc">==</span><span class="st">"Massachusetts"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-154"><a href="#cb31-154" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(month, <span class="at">.drop=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-155"><a href="#cb31-155" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">Count =</span> <span class="fu">n</span>())</span>
+<span id="cb31-156"><a href="#cb31-156" aria-hidden="true" tabindex="-1"></a>mass_shootings_all_mass</span>
+<span id="cb31-157"><a href="#cb31-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-158"><a href="#cb31-158" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all_mass, <span class="fu">aes</span>(<span class="at">x=</span>month, <span class="at">y=</span>Count))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"identity"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">group=</span><span class="dv">1</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 6: Mass Shootings By Month in Massachusetts (2014-2021)"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)</span>
+<span id="cb31-159"><a href="#cb31-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-160"><a href="#cb31-160" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribution of shootings by month in IL (better example of distribution than Mass given higher numbers of shootings)</span></span>
+<span id="cb31-161"><a href="#cb31-161" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(mass_shootings_all, state<span class="sc">==</span><span class="st">"Illinois"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-162"><a href="#cb31-162" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(month))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"Count"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>, <span class="at">group=</span><span class="dv">1</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 7: Mass Shootings By Month in Illinois (2014-2021)"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)</span>
+<span id="cb31-163"><a href="#cb31-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-164"><a href="#cb31-164" aria-hidden="true" tabindex="-1"></a><span class="co">#creating month distribution by state. This table DOES NOT preserve the months where the count=0 but easier to visualize patterns than with histogram</span></span>
+<span id="cb31-165"><a href="#cb31-165" aria-hidden="true" tabindex="-1"></a><span class="co">#remove x-axis values to reduce clutter</span></span>
+<span id="cb31-166"><a href="#cb31-166" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all, <span class="fu">aes</span>(month))<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>, <span class="at">group=</span><span class="dv">1</span>)<span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">"free_y"</span>)<span class="sc">+</span><span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">6</span>))<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 8: Mass Shootings by Month Across U.S. States (2014-2021)"</span>)<span class="sc">+</span><span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_blank</span>(), <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>())</span>
+<span id="cb31-167"><a href="#cb31-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-168"><a href="#cb31-168" aria-hidden="true" tabindex="-1"></a><span class="co">#creating month distribution by state. This table DOES preserve the months where the count=0</span></span>
+<span id="cb31-169"><a href="#cb31-169" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all, <span class="fu">aes</span>(month))<span class="sc">+</span><span class="fu">geom_histogram</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">"free_y"</span>)<span class="sc">+</span><span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">6</span>))<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 9: Mass Shootings by Month Across U.S. States (2014-2021)"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)<span class="sc">+</span><span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_blank</span>(), <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>())</span>
+<span id="cb31-170"><a href="#cb31-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-171"><a href="#cb31-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-172"><a href="#cb31-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-173"><a href="#cb31-173" aria-hidden="true" tabindex="-1"></a>**Figure 4** : Florida does not appear to follow the national trend in mass shootings mainly occurring during the summer.</span>
+<span id="cb31-174"><a href="#cb31-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-175"><a href="#cb31-175" aria-hidden="true" tabindex="-1"></a>**Figure 5** : Filtered data set does not have rows for months where the count of mass shootings is equal to zero. I remake this graph in Figure 6.</span>
+<span id="cb31-176"><a href="#cb31-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-177"><a href="#cb31-177" aria-hidden="true" tabindex="-1"></a>**Figure 6** : Corrected MA graph which preserves months where count=0. Seems to more closely follow the national trend.</span>
+<span id="cb31-178"><a href="#cb31-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-179"><a href="#cb31-179" aria-hidden="true" tabindex="-1"></a>**Figure 7** : Illinois might provide a better example to analyze seasonal variation than MA given the larger number of mass shootings in IL/larger population. The distribution of mass shootings by month in IL very closely follows the national trend.</span>
+<span id="cb31-180"><a href="#cb31-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-181"><a href="#cb31-181" aria-hidden="true" tabindex="-1"></a>**Figure 8** : Line graph for every U.S. state. Unfortunately, we run into the same problem as for MA, months where count=0 for particular states are omitted from the graph.</span>
+<span id="cb31-182"><a href="#cb31-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-183"><a href="#cb31-183" aria-hidden="true" tabindex="-1"></a>**Figure 9** : To more easily see what is going on at the month level, I include a histogram which preserves months where the count=0. There is a wide variety in distribution of shootings by month based on state. However, it appears that states which are generally hotter year round (FL, TN, LA) do not tend to conform to the national trend as well, while states with more seasonal weather variation (MA, NY, IL) more closely follow the national trend.</span>
+<span id="cb31-184"><a href="#cb31-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-185"><a href="#cb31-185" aria-hidden="true" tabindex="-1"></a><span class="fu"># Creating a New Variable</span></span>
+<span id="cb31-186"><a href="#cb31-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-187"><a href="#cb31-187" aria-hidden="true" tabindex="-1"></a>There definitely appears to be a correlation between season on the occurrence of mass shootings. If there are more mass shootings based on opportunity (i.e. more outdoor gatherings, people are more likely to leave the house) in the summer, we would expect more shootings to occur outside during the summer. If it is based on irritability due to the heat, we might not see a big difference in shootings occurring inside versus outside in the summer versus winter. In other words do most shootings during summer months occur outside? Are there more shootings in July because they are occurring outside, because there are more outdoor gatherings?</span>
+<span id="cb31-188"><a href="#cb31-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-189"><a href="#cb31-189" aria-hidden="true" tabindex="-1"></a>Below I create a new variable "location" predicting whether the shooting occurred "inside" or "outside" based on the wording of the address the shooting occurred at.</span>
+<span id="cb31-190"><a href="#cb31-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-193"><a href="#cb31-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-194"><a href="#cb31-194" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new variable column "location" to denote if incident was likely inside or outside based on address column. detects presence of "outside words" or if a address string starts with a number.</span></span>
+<span id="cb31-195"><a href="#cb31-195" aria-hidden="true" tabindex="-1"></a>outside_words<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"block"</span>, <span class="st">"Block"</span>, <span class="st">"corner"</span>, <span class="st">"and"</span>, <span class="st">"of"</span>)</span>
+<span id="cb31-196"><a href="#cb31-196" aria-hidden="true" tabindex="-1"></a>mass_shootings_all<span class="ot">&lt;-</span>mass_shootings_all<span class="sc">%&gt;%</span></span>
+<span id="cb31-197"><a href="#cb31-197" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">location=</span><span class="fu">case_when</span>(</span>
+<span id="cb31-198"><a href="#cb31-198" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(address,<span class="fu">paste0</span>(outside_words, <span class="at">collapse=</span><span class="st">"|"</span>))<span class="sc">~</span> <span class="st">"outside"</span>,</span>
+<span id="cb31-199"><a href="#cb31-199" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_starts</span>(address, <span class="st">"[0-9]"</span>) <span class="sc">~</span> <span class="st">"inside"</span>,</span>
+<span id="cb31-200"><a href="#cb31-200" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"outside"</span>))</span>
+<span id="cb31-201"><a href="#cb31-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-202"><a href="#cb31-202" aria-hidden="true" tabindex="-1"></a><span class="co">#New column location versus addresses</span></span>
+<span id="cb31-203"><a href="#cb31-203" aria-hidden="true" tabindex="-1"></a>mass_shootings_all <span class="sc">%&gt;%</span> </span>
+<span id="cb31-204"><a href="#cb31-204" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(address, location)</span>
+<span id="cb31-205"><a href="#cb31-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-206"><a href="#cb31-206" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting inside versus outside shootings by month</span></span>
+<span id="cb31-207"><a href="#cb31-207" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all, <span class="fu">aes</span>(<span class="at">x=</span>month, <span class="at">group=</span>location, <span class="at">color=</span>location))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 10: Location of Mass Shootings by Month (2014-2021)"</span>)</span>
+<span id="cb31-208"><a href="#cb31-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-209"><a href="#cb31-209" aria-hidden="true" tabindex="-1"></a><span class="co">#how does COVID-19/years affect the number inside versus outside shootings</span></span>
+<span id="cb31-210"><a href="#cb31-210" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">group=</span>location, <span class="at">color=</span>location))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 11: Location of Mass Shootings by Year (2014-2022)"</span>)</span>
+<span id="cb31-211"><a href="#cb31-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-212"><a href="#cb31-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-213"><a href="#cb31-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-214"><a href="#cb31-214" aria-hidden="true" tabindex="-1"></a>**Figure 10** : It appears that there are significantly more shootings occurring outside during the summer months, however, indoor shootings too increase during the summer months, suggesting that multiple factors (besides opportunity) could be contributing to the increase in shootings during the summer months.</span>
+<span id="cb31-215"><a href="#cb31-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-216"><a href="#cb31-216" aria-hidden="true" tabindex="-1"></a>**Figure 11** : While the indoor/outdoor lines are generally very similar, it is interesting looking at the disparity in indoor/outdoor shootings in 2020, as it appears there are significantly more outside shootings in 2020, possibly given offices, schools, and other "indoor" settings were closed or at limited capacity for much of the year.</span>
+<span id="cb31-217"><a href="#cb31-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-218"><a href="#cb31-218" aria-hidden="true" tabindex="-1"></a><span class="fu"># Does the Severity of Shootings Correlate with Seasonality?</span></span>
+<span id="cb31-219"><a href="#cb31-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-220"><a href="#cb31-220" aria-hidden="true" tabindex="-1"></a>Next, I will analyze how many people are shot or killed during mass shootings, and if seasonality also affects severity.</span>
+<span id="cb31-221"><a href="#cb31-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-222"><a href="#cb31-222" aria-hidden="true" tabindex="-1"></a>First I will create a new variable, "number_shot", because I believe this a better measure of severity of a shooting than number killed or number injured alone. Number_shot is a better measure of intention of the shooter (how many people the shooter intended to kill/affect), however this is still a limited measure as skill/how good the shooters aim is may affect if he/she makes their intended impact.</span>
+<span id="cb31-223"><a href="#cb31-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-224"><a href="#cb31-224" aria-hidden="true" tabindex="-1"></a>Because there is also large variability in the number shot, I created a new variable, severity, with categories based on the number of people shot (low, mid, and high severity). I chose <span class="sc">\&lt;</span>9 shot as low severity 10-29 as mid severity, and 30+ as high severity based on the number of distinct values of number_shot. This variable is still difficult to work with, given the majority of mass shootings only involve four victims. However, it is useful for weeding out the lower severity shootings to see trends in the higher severity shootings where 10 or more people are killed. I chose 30+ as high severity as there are few with over 30 people shot so this seemed like a logical threshold for high severity (as they also go way beyond 30 shot, one incident, involving 500 people shot).</span>
+<span id="cb31-225"><a href="#cb31-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-228"><a href="#cb31-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-229"><a href="#cb31-229" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new column/variable to measure severity based on above variables, number_shot= number_killed+number_injured</span></span>
+<span id="cb31-230"><a href="#cb31-230" aria-hidden="true" tabindex="-1"></a>mass_shootings_all<span class="ot">&lt;-</span>mass_shootings_all <span class="sc">%&gt;%</span> </span>
+<span id="cb31-231"><a href="#cb31-231" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">number_shot=</span> number_injured<span class="sc">+</span>number_killed)</span>
+<span id="cb31-232"><a href="#cb31-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-233"><a href="#cb31-233" aria-hidden="true" tabindex="-1"></a><span class="co">#Looking at distinct values for new variable</span></span>
+<span id="cb31-234"><a href="#cb31-234" aria-hidden="true" tabindex="-1"></a><span class="fu">distinct</span>(mass_shootings_all, number_shot) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-235"><a href="#cb31-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(number_shot)</span>
+<span id="cb31-236"><a href="#cb31-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-237"><a href="#cb31-237" aria-hidden="true" tabindex="-1"></a><span class="co">#creating a new variable, severity, by categorizing the number shot into low, mid, and high severity</span></span>
+<span id="cb31-238"><a href="#cb31-238" aria-hidden="true" tabindex="-1"></a>mass_shootings_all<span class="ot">&lt;-</span>mass_shootings_all <span class="sc">%&gt;%</span> </span>
+<span id="cb31-239"><a href="#cb31-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">severity=</span> <span class="fu">case_when</span>(number_shot <span class="sc">&lt;=</span> <span class="dv">9</span> <span class="sc">~</span> <span class="st">"low"</span>, </span>
+<span id="cb31-240"><a href="#cb31-240" aria-hidden="true" tabindex="-1"></a>                             number_shot <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> number_shot <span class="sc">&lt;=</span> <span class="dv">29</span> <span class="sc">~</span> <span class="st">"mid"</span>, </span>
+<span id="cb31-241"><a href="#cb31-241" aria-hidden="true" tabindex="-1"></a>                             number_shot <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"high"</span>))</span>
+<span id="cb31-242"><a href="#cb31-242" aria-hidden="true" tabindex="-1"></a>mass_shootings_all</span>
+<span id="cb31-243"><a href="#cb31-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-244"><a href="#cb31-244" aria-hidden="true" tabindex="-1"></a><span class="co">#2D histogram, depicting incidents by year based on number killed, and a count for how many incidents in a particular year</span></span>
+<span id="cb31-245"><a href="#cb31-245" aria-hidden="true" tabindex="-1"></a>mass_shootings_all <span class="sc">%&gt;%</span> </span>
+<span id="cb31-246"><a href="#cb31-246" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(number_shot<span class="sc">&lt;</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-247"><a href="#cb31-247" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Year, number_shot))<span class="sc">+</span><span class="fu">geom_bin2d</span>()<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 12: Mass Shootings by Number of People Killed or Injured (2014-2021)*"</span>, <span class="at">caption=</span><span class="st">"*Shootings with over 100 killed/injured are exluded for readability of plot"</span>, <span class="at">y=</span><span class="st">"Number Shot"</span>)</span>
+<span id="cb31-248"><a href="#cb31-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-249"><a href="#cb31-249" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating line graph for severity</span></span>
+<span id="cb31-250"><a href="#cb31-250" aria-hidden="true" tabindex="-1"></a>mass_shootings_all <span class="sc">%&gt;%</span> </span>
+<span id="cb31-251"><a href="#cb31-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>month, <span class="at">group=</span>severity, <span class="at">color=</span>severity))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 13: Severity of Mass Shootings by Month (2014-2021)"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)</span>
+<span id="cb31-252"><a href="#cb31-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-253"><a href="#cb31-253" aria-hidden="true" tabindex="-1"></a><span class="co">#removing "low" from severity line graph to more easily visualize trends for mid and high severity shootings</span></span>
+<span id="cb31-254"><a href="#cb31-254" aria-hidden="true" tabindex="-1"></a>mass_shootings_all <span class="sc">%&gt;%</span> </span>
+<span id="cb31-255"><a href="#cb31-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>month, <span class="at">group=</span>severity, <span class="at">color=</span>severity))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">stat=</span><span class="st">"count"</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 14: Severity of Mass Shootings by Month (2014-2021)*"</span>, <span class="at">caption=</span><span class="st">"*Low severity shootings excluded from this graph for readability"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Count"</span>)<span class="sc">+</span><span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb31-256"><a href="#cb31-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-257"><a href="#cb31-257" aria-hidden="true" tabindex="-1"></a><span class="co">#Totaling the number of people killed in mass shootings by month</span></span>
+<span id="cb31-258"><a href="#cb31-258" aria-hidden="true" tabindex="-1"></a>mass_shootings_all_month_sum<span class="ot">&lt;-</span>mass_shootings_all<span class="sc">%&gt;%</span> </span>
+<span id="cb31-259"><a href="#cb31-259" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span></span>
+<span id="cb31-260"><a href="#cb31-260" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">total_shot=</span><span class="fu">sum</span>(number_shot))</span>
+<span id="cb31-261"><a href="#cb31-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-262"><a href="#cb31-262" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot based on above sum total</span></span>
+<span id="cb31-263"><a href="#cb31-263" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mass_shootings_all_month_sum)<span class="sc">+</span></span>
+<span id="cb31-264"><a href="#cb31-264" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>month, <span class="at">y=</span>total_shot, <span class="at">group=</span><span class="dv">1</span>))<span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>month, <span class="at">y=</span>total_shot, <span class="at">group=</span><span class="dv">1</span>))<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 15: Total Number of People Shot or Killed in Mass Shootings by Month (2014-2021)"</span>, <span class="at">x=</span><span class="st">"Month"</span>, <span class="at">y=</span><span class="st">"Total Shot"</span>)</span>
+<span id="cb31-265"><a href="#cb31-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-266"><a href="#cb31-266" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating interacting scatter plot with ggplot-ly</span></span>
+<span id="cb31-267"><a href="#cb31-267" aria-hidden="true" tabindex="-1"></a>p1<span class="ot">&lt;-</span><span class="fu">filter</span>(mass_shootings_all, number_shot<span class="sc">&lt;</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-268"><a href="#cb31-268" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>incident_date, <span class="at">y=</span>number_shot))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">size=</span><span class="fl">0.8</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Figure 16: Shootings 2014-2021"</span>, <span class="at">x=</span><span class="st">"Incident Date"</span>, <span class="at">y=</span><span class="st">"Total Shot"</span>)</span>
+<span id="cb31-269"><a href="#cb31-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-270"><a href="#cb31-270" aria-hidden="true" tabindex="-1"></a>p1<span class="ot">&lt;-</span><span class="fu">ggplotly</span>(p1)</span>
+<span id="cb31-271"><a href="#cb31-271" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb31-272"><a href="#cb31-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-273"><a href="#cb31-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-274"><a href="#cb31-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-275"><a href="#cb31-275" aria-hidden="true" tabindex="-1"></a>**Figure 12** : this 2d plot helps depict trends in the number shot over time. For instance in 2020-2021, there appears to be a higher count of shootings where less than 10 people are shot, however there does not appear to be an increase in shooting with a higher number of people shot over time.</span>
+<span id="cb31-276"><a href="#cb31-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-277"><a href="#cb31-277" aria-hidden="true" tabindex="-1"></a>**Figure 13** : This graph shows that low severity shootings appear to follow seasonal trends, but it is difficult to visualize low and mid severity shootings on this graph.</span>
+<span id="cb31-278"><a href="#cb31-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-279"><a href="#cb31-279" aria-hidden="true" tabindex="-1"></a>**Figure 14** : This graph filters out mid and high severity shootings across months. Mid severity shootings seem to somewhat follow the national seasonality trend, but there does not seem to be much correlation with seasonality for the high severity shootings. However, we have fewer points in the high severity group, so again, this is difficult to draw conclusions from. From these graphs, it seems that low severity shootings follow the seasonality trend, but mid and high severity shootings may be less likely to conform to this trend.</span>
+<span id="cb31-280"><a href="#cb31-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-281"><a href="#cb31-281" aria-hidden="true" tabindex="-1"></a>**Figure 15** : To look at severity, I also created a graph with the sum of individuals killed in mass shootings by month. Because the graph is not more "stretched out"/"taller, it seems that shootings occurring in the summer do not necessarily include more victims, there are just more shootings overall. The spike in October is likely due to the 2017 shooting in Las Vegas that killed 59 and injure 441 people on October 1st.</span>
+<span id="cb31-282"><a href="#cb31-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-283"><a href="#cb31-283" aria-hidden="true" tabindex="-1"></a>**Figure 16** :Interactive plot with the number shot and the date. It is interesting to hone in on a particular incident and view when it occurred and how many people were affected. Shootings with over 100 killed/injured are excluded for readability of plot. 2 missing points: October 1, 2017, where 500 people were shot in Las Vegas, and June 12, 2016, where 103 people were shot in Orlando.</span>
+<span id="cb31-284"><a href="#cb31-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-285"><a href="#cb31-285" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusion</span></span>
+<span id="cb31-286"><a href="#cb31-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-287"><a href="#cb31-287" aria-hidden="true" tabindex="-1"></a>Overall it appears there is a seasonal impact on the number of mass shootings, but not necessarily the severity of mass shootings. June and July seem to have the greatest incidence of mass shootings. It is difficult to explain why more mass shootings occur during the summer months but opportunity is likely a contributing factor, given that more mass shootings occur outside during the summer versus inside. Opportunity also appears to be at play when analyzing mass shooting trends in the year 2020, as there is a massive increase in mass shootings in May and June following the lifting of heavy COVID-19 restrictions, and a much larger amount of outdoor compared to indoor shootings in 2020, perhaps due to a reduction of indoor gatherings during this year. Overall, it appears that mass shootings follow the seasonality trend of other violent crimes.</span>
+<span id="cb31-288"><a href="#cb31-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-289"><a href="#cb31-289" aria-hidden="true" tabindex="-1"></a>This analysis leaves me with many questions and thoughts about future research. For instance, it would be interesting to join this data with more information on the location, for instance if it occurred in a home, an office, an event, a school, or on the street and perhaps seeing if the distribution of shootings in each month are seasonally correlated at the setting level or perhaps there are other factors involved. I am also interested to see if particular events correlate with the timing of shootings (for instance the January 6 capitol attack, the war in Ukraine, or other national and international events). Finally, I am curious whether motive is correlated with seasonality, for instance are more spontaneous shootings likely to occur during the summer and more premeditated crimes less likely to follow this trend?</span>
+<span id="cb31-290"><a href="#cb31-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-291"><a href="#cb31-291" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
+<span id="cb31-292"><a href="#cb31-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-293"><a href="#cb31-293" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2014). *Mass Shootings - 2014*. https://www.gunviolencearchive.org/reports/mass-shootings/2014</span>
+<span id="cb31-294"><a href="#cb31-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-295"><a href="#cb31-295" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2015). *Mass Shootings - 2015*. https://www.gunviolencearchive.org/reports/mass-shootings/2015</span>
+<span id="cb31-296"><a href="#cb31-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-297"><a href="#cb31-297" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2016). *Mass Shootings - 2016*. https://www.gunviolencearchive.org/reports/mass-shooting?year=2016</span>
+<span id="cb31-298"><a href="#cb31-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-299"><a href="#cb31-299" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2017). *Mass Shootings - 2017*. https://www.gunviolencearchive.org/reports/mass-shooting?year=2017</span>
+<span id="cb31-300"><a href="#cb31-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-301"><a href="#cb31-301" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2018). *Mass Shootings - 2018*. https://www.gunviolencearchive.org/reports/mass-shooting?year=2018</span>
+<span id="cb31-302"><a href="#cb31-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-303"><a href="#cb31-303" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2019). *Mass Shootings - 2019*. https://www.gunviolencearchive.org/reports/mass-shooting?year=2019</span>
+<span id="cb31-304"><a href="#cb31-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-305"><a href="#cb31-305" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2020). *Mass Shootings - 2020*. https://www.gunviolencearchive.org/reports/mass-shooting?year=2020</span>
+<span id="cb31-306"><a href="#cb31-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-307"><a href="#cb31-307" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2021). *Mass Shootings - 2021*. https://www.gunviolencearchive.org/reports/mass-shooting?year=2021</span>
+<span id="cb31-308"><a href="#cb31-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-309"><a href="#cb31-309" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive (2022a). *Mass Shootings - 2022*. https://www.gunviolencearchive.org/reports/mass-shooting</span>
+<span id="cb31-310"><a href="#cb31-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-311"><a href="#cb31-311" aria-hidden="true" tabindex="-1"></a>Gun Violence Archive. (2022b, January 3). *General Methodology*. https://www.gunviolencearchive.org/methodology</span>
+<span id="cb31-312"><a href="#cb31-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-313"><a href="#cb31-313" aria-hidden="true" tabindex="-1"></a>Lauritsen, Janet J. and Nicole White. (2014). "Seasonal Patterns in Criminal Victimization Trends". (June 2014). *U.S. Department of Justice*. 1-22. https://bjs.ojp.gov/content/pub/pdf/spcvt.pdf</span>
+<span id="cb31-314"><a href="#cb31-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-315"><a href="#cb31-315" aria-hidden="true" tabindex="-1"></a>Wickham, Hadley and Garrett Grolemund. (2017). *R for Data Science*. O'Reilly Media. https://r4ds.had.co.nz/</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
