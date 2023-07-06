@@ -1,17 +1,21 @@
 ---
 title: "Resume"
 author: "Emma Rasmussen"
-date: "2022-10-22"
-image: "image.jpg"
+date: "2022-12-10"
+image: "R_logo.jpg"
 ---
 
 ## **Emma Rasmussen**
 
-Northampton, MA; 978-877-6257; erasmussen\@umass.edu
+Northampton, MA
+
+978-877-6257
+
+erasmussen\@umass.edu
 
 #### [**Technical Skills**]{.underline}
 
-R (familiar with), ArcGIS (familiar with), Microsoft Office (Word, Excel, PowerPoint, Outlook), Google Suites (Docs, Slides, Forms, Sheets)
+R, ArcGIS (familiar with), Microsoft Office (Word, Excel, PowerPoint, Outlook), Google Suites (Docs, Slides, Forms, Sheets)
 
 #### [**Education**]{.underline}
 

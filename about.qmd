@@ -1,18 +1,25 @@
 ---
 title: "About"
-image: profilephoto.jpg
+image: profilephoto.jpeg
 about:
   template: jolla
   links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/emmarrasmussen/
     - icon: github
       text: Github
-      href: https://github.com
+      href: https://github.com/emmarasmussen
 ---
 
-About this blog
+Hi! My name is Emma, and I am passionate about the analysis and communication of population-level health data to inform public health interventions and health policy that address health disparities in the United States.
+
+To work towards this passion, I am a current student in the Data Analytics and Computation Social Sciences (DACSS) program at the University of Massachusetts Amherst. I have an undergraduate degree in public health and anthropology/sociology. After completing my undergraduate degree I worked as a research assistant with the Framingham Heart Study which involved manually extracting data from individual health records. This led to my interest in the analysis portion of health data and making the process more efficient. I cannot wait to combine my interests to do meaningful work in public health data analysis in the future.
+
+This blog has examples of my work from courses I have taken in my time at DACSS. Please feel free to browse my work, and do not hesitate to contact me if you have any questions.
+
+Emma
+
+erasmussen\@umass.edu
+
+\

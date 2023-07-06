@@ -1,10 +1,11 @@
 ---
-title: "Welcome To My Blog"
+title: "Quantitative Analysis Final Project"
 author: "Emma Rasmussen"
-date: "2022-10-22"
+date: "2022-12-09"
+image: "regression.jpg"
 categories: 
 ---
 
-This is the first post in a Quarto blog. Welcome! Code to come
+Political Affiliation and COVID-19: A County-Level Analysis of Political Partisanship on COVID-19 Death Rates
 
-![](thumbnail.jpg)
+![](images/paste-CB72FEF1.png)

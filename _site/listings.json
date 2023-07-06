@@ -3,7 +3,9 @@
     "listing": "/index.html",
     "items": [
       "/posts/post-with-code/index.html",
-      "/posts/welcome/index.html"
+      "/posts/welcome/index.html",
+      "/posts/Post1/index.html",
+      "/posts/Post 3/index.html"
     ]
   }
 ]
