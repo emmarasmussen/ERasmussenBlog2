@@ -10,8 +10,7 @@ website:
         href: https://github.com/emmarasmussen
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: lux
 
 editor: visual
 

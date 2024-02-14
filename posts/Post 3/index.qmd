@@ -771,24 +771,23 @@ print(f1_by_class)
 
 **Three-Class F1 Scores (Macro, By-Class):**
 
-Logistic Regression: 0.760 [0.9402229, 0.58682635, 0.75409836]
+Logistic Regression: 0.760 \[0.9402229, 0.58682635, 0.75409836\]
 
-Boosting: 0.924 [0.97341513, 0.8452381, 0.95384615]
+Boosting: 0.924 \[0.97341513, 0.8452381, 0.95384615\]
 
-SVM: 0.841 [0.95634518, 0.78212291, 0.78571429]
+SVM: 0.841 \[0.95634518, 0.78212291, 0.78571429\]
 
-KNN: 0.792 [0.94512195, 0.65895954, 0.77310924]
+KNN: 0.792 \[0.94512195, 0.65895954, 0.77310924\]
 
 **Binary Outcome F1 Scores (Macro, By-Class):**
 
-Logistic Regression: 0.869 [0.94010152 0.79725086]
+Logistic Regression: 0.869 \[0.94010152 0.79725086\]
 
-Boosting: 0.947 [0.97546012, 0.91946309]
+Boosting: 0.947 \[0.97546012, 0.91946309\]
 
-SVM: 0.912 [0.9591002, 0.86577181]
+SVM: 0.912 \[0.9591002, 0.86577181\]
 
-KNN: 0.851 [0.93612774 0.76642336]
-
+KNN: 0.851 \[0.93612774 0.76642336\]
 
 The best performing model for both a three-class outcome and a binary outcome was the model created with XGBoost. These models actually performed slightly better when trained on the full training set and tested on the held-out test set than they did during cross validation. This is likely because the final model was trained on a larger dataset. Boosting slowly learns through a sequential algorithm where trees are fit on residuals from the previous tree. Because we are fitting many trees, this algorithm is less prone to overfitting. While XGBoost reduces bias and can produce very good predictions, this model is less interpretable than other models such as logistic regression.
 
@@ -812,6 +811,6 @@ While my original aim was to come up with a high-performing interpretable model,
 
 # References
 
-Dataset: Ayres de Campos et al. (2000) SisPorto 2.0 A Program for Automated Analysis of Cardiotocograms. J Matern Fetal Med 5:311-318 ([https://onlinelibrary.wiley.com/doi/10.1002/1520-6661(200009/10)9:5%3C311](https://onlinelibrary.wiley.com/doi/10.1002/1520-6661(200009/10)9:5%3C311){.uri}::AID-MFM12%3E3.0.CO;2-9)
+Dataset: Ayres de Campos et al. (2000) SisPorto 2.0 A Program for Automated Analysis of Cardiotocograms. J Matern Fetal Med 5:311-318 (<https://onlinelibrary.wiley.com/doi/10.1002/1520-6661(200009/10)9:5%3C311>::AID-MFM12%3E3.0.CO;2-9)
 
 Cariotocography. (Accessed May 24, 2023). Wikipedia. <https://en.wikipedia.org/wiki/Cardiotocography>. Fetal Health Classification. (Accessed May 24, 2023).
